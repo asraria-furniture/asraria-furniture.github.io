@@ -1,8 +1,116 @@
+@import url(./common/css/page.css);
+
 .main {
-    background-color: black;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
     width: 100vw;
+}
+.main-header {
+    height: 84px;
     display: flex;
     align-items: center;
-    color: white;
+    justify-content: space-between;
+    padding: 0px 16px 0px 16px;
+    box-shadow: 1px 2px 2px #3366cc33;
+}
+.main-header-wrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    column-gap: 10px;
+}
+.main-menu {
+    height: 30px;
+    cursor: pointer;
+    opacity: .8;
+    -webkit-tap-highlight-color: transparent;
+}
+.main-menu:hover {
+    opacity: 1;
+}
+.main-header-department-dropdown {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-left: 40px;
+    height: calc(100% - 5px);
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+.main-header-department-dropdown > span {
+    font-size: 20px;
+}
+.main-header-department-dropdown-arrow-up,
+.main-header-department-dropdown-arrow-down {
+    height: 20px;
+}
+.main-header-department-dropdown:hover > .main-header-department-dropdown-arrow-down,
+.main-header-department-dropdown-arrow-up {
+    display: none;
+}
+.main-header-department-dropdown:hover > .main-header-department-dropdown-arrow-up {
+    display: block;
+}
+.main-header-department-dropdown:hover > .main-header-department-dropdown-menu {
+    display: flex;
+}
+.main-header-department-dropdown-menu {
+    position: absolute;
+    display: none;
+    top: 84px;
+    border-style: solid;
+    border-width: 1px;
+    /* border-top: none; */
+    border-color: #3366cc33;
+    width: 180px;
+    flex-direction: column;
+    max-height: calc(100vh - 84px);
+    overflow-y: scroll;
+    -webkit-tap-highlight-color: transparent;
+}
+.main-header-department-dropdown-menu > span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 6px 30px 6px 30px;
+    height: fit-content;
+}
+.main-header-department-dropdown-menu > span:hover {
+    background-color: #afafaf3e;
+    border-radius: 6px;
+}
+.main-body {
+    max-height: calc(100vh - 84px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.main-logo-anchor {
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.main-logo {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 25px;
+    cursor: pointer;
+    font-weight: 800;
+    color: #000000;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-header-department-dropdown {
+        display: none;
+    }
+    .main-header-wrapper {
+        width: 100%;
+    }
+    .main-logo-anchor {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

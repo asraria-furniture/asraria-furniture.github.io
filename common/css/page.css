@@ -1,0 +1,8 @@
+* {
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
