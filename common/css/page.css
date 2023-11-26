@@ -1,0 +1,10 @@
+@import url("./font.css");
+
+* {
+    margin: 0px;
+    font-family: Gilroy-Light, sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
