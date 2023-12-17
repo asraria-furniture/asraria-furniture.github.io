@@ -1,68 +1,77 @@
 import { OrgInfo } from "./common/js/org-info.js";
-import { CONF } from "./constants/configs.contants.js";
 import { VAR } from "./constants/variables.constants.js";
 import { LOCAL_VAR } from "./local-variables.constants.js";
 
 export class Home {
     constructor() {
-        this.searchText = "";
+        this.searchVale = "";
     }
     static onInit() {
         const orgInfo = new OrgInfo();
         const home = new Home();
 
         orgInfo.setTitle();
-        home.setLogo();
-        home.setDepartments();
-        home.listenSearchInput();
-        home.listenSearchInputCloseClick();
+        home.listen();
 
         return home;
     }
-    setLogo() {
-        const tagRef = document.getElementById(LOCAL_VAR.MAIN_LOGO_ID);
+    onSearchClick(event) {
+        const { left: searchRefLeftValue, top: searchRefTopValue } = event.currentTarget.getBoundingClientRect();
 
-        if (tagRef) tagRef.innerText = CONF.ORG_NAME;
+        const searchBarModalRef = document.getElementById(LOCAL_VAR.MAIN_SEARCH_BAR_MODAL);
+        const searchBarModalContentRef = document.getElementById(LOCAL_VAR.MAIN_SEARCH_BAR_MODAL_CONTENT_ID);
+        const inputRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_INPUT_ID);
+        
+        if (!searchBarModalRef) return;
+        if (!searchBarModalContentRef) return;
+        
+        searchBarModalRef.style.display = "block";
+        inputRef.focus();
+        searchBarModalContentRef.style.transform = `translate(${searchRefLeftValue}px, ${searchRefTopValue}px)`;
     }
-    setDepartments() {
-        const tagRef = document.getElementById(LOCAL_VAR.MAIN_HEADER_DEPARTMENT_DROPDOWN_MENU_ID);
-
-        if (!tagRef) return;
-
-        for (const departmentKey in CONF.DEPARTMENTS) {
-            if (Object.hasOwnProperty.call(CONF.DEPARTMENTS, departmentKey)) {
-                const departmentValue = CONF.DEPARTMENTS[departmentKey];
-                const spanRef = document.createElement(VAR.SPAN);
-
-                spanRef.textContent = departmentValue;
-                tagRef.appendChild(spanRef);
-            }
+    onSearchBarModalClose(event) {
+        const { x, y } = event.target.getBoundingClientRect();
+        const searchBarModalRef = document.getElementById(LOCAL_VAR.MAIN_SEARCH_BAR_MODAL);
+        const searchBarModalContentRef = document.getElementById(LOCAL_VAR.MAIN_SEARCH_BAR_MODAL_CONTENT_ID);
+        const { top, left, width, height } = searchBarModalContentRef.getBoundingClientRect();
+        
+        if (left > x 
+            || x > left+width
+            || top > y
+            || y > top+height) {
+            searchBarModalRef.style.display = "none";
         }
     }
-    onSearch(searchText) {
-        const iconRef = document.getElementById(LOCAL_VAR.MAIN_HEADER_SEARCH_INPUT_CLOSE_ICON_ID);
+    onClearSeachInput() {
+        const inputRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_INPUT_ID);
+        const modalSearchTextClearRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_TEXT_CLEAR_ID);
         
-        this.searchText = searchText;
-        iconRef.style.display = searchText ? "block" : "none";
-    }
-    onClickClearSearchInput() {
-        const inputRef = document.getElementById(LOCAL_VAR.MAIN_HEADER_SEARCH_INPUT_ID);
+        if (!inputRef) return;
         
         inputRef.value = "";
-        this.onSearch("");
-        inputRef.focus();
+        this.searchVale = "";
+        setTimeout(() => modalSearchTextClearRef.style.display = "none", 0);
     }
-    listenSearchInput() {
-        const inputRef = document.getElementById(LOCAL_VAR.MAIN_HEADER_SEARCH_INPUT_ID);
+    onSearchText(str) {
+        const modalSearchTextClearRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_TEXT_CLEAR_ID);
         
+        this.searchVale = str;
+        if (!modalSearchTextClearRef) return;
+
+        modalSearchTextClearRef.style.display = str ? "block": "none";
+    }
+    listen() {
+        const searchRef = document.getElementById(LOCAL_VAR.SEARCH_BAR);
+        const searchBarModalOverlayRef = document.getElementById(LOCAL_VAR.MAIN_SEARCH_BAR_MODAL);
+        const modalSearchTextClearRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_TEXT_CLEAR_ID);
+        const searchInputRef = document.getElementById(LOCAL_VAR.MODAL_SEARCH_INPUT_ID);
+
         if (window.innerWidth < VAR.MEDIA_BEARKPOINT_WIDTH) return;
-        
-        inputRef.oninput = (event) => event.target ? this.onSearch(event.target.value) : null;
-    }
-    listenSearchInputCloseClick() {
-        const closeIconRef = document.getElementById(LOCAL_VAR.MAIN_HEADER_SEARCH_INPUT_CLOSE_ICON_ID);
-        
-        closeIconRef.onclick = () => this.onClickClearSearchInput();
+
+        searchRef.onclick = (event) => event.target ? this.onSearchClick(event) : null;
+        searchBarModalOverlayRef.onclick = (event) => event.target ? this.onSearchBarModalClose(event) : null;
+        modalSearchTextClearRef.onclick = (event) => event.target ? this.onClearSeachInput() : null;
+        searchInputRef.oninput = (event) => event.target ? this.onSearchText(event.target.value): null;
     }
 }
 
