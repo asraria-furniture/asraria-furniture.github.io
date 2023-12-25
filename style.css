@@ -131,7 +131,45 @@ modal-search-result-popular>chip-list-wrapper>span {
     background-color: transparent;
 }
 
-modal-search-result-fetched {}
+modal-search-result-popular>chip-list-wrapper>span:hover {
+    background-color: #6161610f;
+}
+
+modal-search-result-fetched {
+    display: none;
+    flex-direction: column;
+    width: calc(100% - 48px);
+    padding: 8px 24px 8px 24px;
+    row-gap: 11.2px;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+}
+
+modal-search-result-fetched>div {
+    display: flex;
+    column-gap: 28px;
+    align-items: center;
+    user-select: none;
+}
+
+modal-search-result-fetched img {
+    width: 10px;
+}
+
+modal-search-result-fetched>div>div {
+    color: #9E9E9E;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    width: 100%;
+    white-space: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+modal-search-result-fetched span {
+    color: #000;
+}
 
 main-header {
     display: flex;
@@ -181,16 +219,24 @@ search-bar>img {
     height: 100%;
 }
 
+search-bar>div,
 search-bar>span {
-    color: #9E9E9E;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     letter-spacing: 0.5px;
     height: 100%;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+search-bar>div {
+    color: #000;
+    margin-left: -28px;
+}
+
+search-bar>span {
+    color: #9E9E9E;
 }
 
 header-content>span {
@@ -242,6 +288,48 @@ header-content>svg:last-of-type:hover path:first-of-type {
 
 header-content>svg:hover path:last-of-type {
     fill: #987A62;
+}
+
+main-body {
+    height: calc(100vh - 90px);
+    display: block;
+    width: 100vw;
+    overflow: hidden;
+}
+
+main-department {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 150px 0px 150px;
+    align-items: flex-start;
+    border: 1px solid rgba(0, 0, 0, 0.72);
+    border-top: none;
+    user-select: none;
+}
+
+main-department>span {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.75px;
+    cursor: pointer;
+    position: relative;
+    height: 31px;
+    display: flex;
+    align-items: flex-start;
+}
+
+main-department>span:hover:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ff7035;
+}
+
+main-department>span:hover {
+    color: #ff7035;
 }
 
 @media screen and (max-width: 1200px) {}
