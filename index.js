@@ -8,6 +8,7 @@ export class Home {
         this.searchVale = "";
         this.placeholder = "What are you looking for?";
         this.searchedFilterList = [];
+        this.activeDepartment = "";
     }
     static onInit() {
         const orgInfo = new OrgInfo();
@@ -20,6 +21,60 @@ export class Home {
         
         return home;
     }
+    setActiveDepartment(key) {
+        this.activeDepartment = key;
+        console.log("setActiveDepartment(): ", this.activeDepartment);
+        this.setCategoryNSubCategoryToModal();
+    }
+    setCategoryNSubCategoryToModal() {
+        const divRef = document.getElementById(LOCAL_VAR.CATEGORY_DROPDOWN_DIV_ID);
+
+        if (!divRef) return;
+        if (!this.activeDepartment) return divRef.innerHTML = "";
+
+        const listOfCategories = VAR.DEPARTMENT_CATEGORY_MAPPING[CONF.DEPARTMENTS[this.activeDepartment]];
+
+        for (const category of listOfCategories) {
+            const listOfSubCategories = VAR.CATEGORY_SUB_CATEGORY_MAPPING[category];
+            const categoryDivElement = document.createElement("category-div");
+            const categoryTitleSpanElement = document.createElement(VAR.SPAN);
+            categoryTitleSpanElement.innerText = category;
+            const subCategoryListWrapperDivElement = document.createElement(VAR.DIV);
+            for (const subCategory of listOfSubCategories) {
+                const spanElement = document.createElement(VAR.SPAN);
+                spanElement.innerText = subCategory;
+                subCategoryListWrapperDivElement.appendChild(spanElement);
+            }
+            categoryDivElement.appendChild(categoryTitleSpanElement);
+            categoryDivElement.appendChild(subCategoryListWrapperDivElement);
+            divRef.appendChild(categoryDivElement);
+        }
+        const imgClassType = LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_MAPPING[CONF.DEPARTMENTS[this.activeDepartment]];
+        const categoryImgElement = document.createElement("category-img");
+        switch (imgClassType) {
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_SINGLE: 
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_DOUBLE_DIAGONALLY_ARRANGED: 
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_TRIPLE_WAVY_ARRANGED: 
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_TRIPLE_INLINE_ARRANGED: 
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_QUADUPLE_TILTED_WINDOW_ARRANGEMENT: {
+                const divElement = document.createElement(VAR.DIV);
+                divElement.className = imgClassType;
+                divRef.appendChild(divElement);
+                break;
+            }
+            case LOCAL_VAR.DEPARTMENT_CATEGORY_IMG_CLASS.TYPE_QUADRUPLE_WAVY_ARRANGED: {
+                const divElement1 = document.createElement(VAR.DIV);
+                const divElement2 = document.createElement(VAR.DIV);
+                divElement1.className = imgClassType;
+                divElement2.className = imgClassType;
+                divRef.appendChild(divElement1);
+                divRef.appendChild(divElement2);
+                break;
+            }
+            default: break;
+        }
+        divRef.appendChild(categoryImgElement);
+    }
     setDepartments() {
         const deptRef = document.getElementById(LOCAL_VAR.MAIN_DEPARTMENT_ID);
         deptRef.innerHTML = "";
@@ -27,6 +82,10 @@ export class Home {
             if (Object.hasOwnProperty.call(CONF.DEPARTMENTS, key)) {
                 const element = CONF.DEPARTMENTS[key];
                 const span = document.createElement(VAR.SPAN);
+                span.id = key;
+                span.onmouseenter = () => this.setActiveDepartment(key);
+                // span.onmouseleave = () => this.setActiveDepartment("");
+                span.onpointermove = (a) => console.log(a);
                 span.innerText = element;
                 deptRef.appendChild(span)
             }
