@@ -1,0 +1,10 @@
+@import url("./font.css");
+
+* {
+  margin: 0;
+  font-family: Gilroy-Light, sans-serif;
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

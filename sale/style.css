@@ -1,7 +1,0 @@
-@import url(../common/css/page.css);
-
-.sale {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-}
