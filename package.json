@@ -22,17 +22,18 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "preesbuild": "mkdir -p build && cp -R public/* build/",
-    "esbuild": "env-cmd -f .env node build.mjs",
+    "lint:fix": "eslint --fix --ext .tsx,.ts src",
+    "format": "prettier --write .",
+    "shift_files_to_build": "node src/scripts/copy-folder.js public build",
+    "esbuild": "npm run shift_files_to_build && env-cmd -f .env node build.mjs",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages -d build -b gh-pages",
+    "deploy": "npm run esbuild && gh-pages -d build -b gh-pages",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext=.tsx,.ts ./src/",
-    "lint:fix": "eslint --ext=.tsx,.ts ./src/ --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
@@ -62,13 +63,15 @@
     "@typescript-eslint/parser": "^6.20.0",
     "child_process": "^1.0.2",
     "esbuild": "0.20.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.0.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^6.1.1",
     "gulp": "^4.0.2",
+    "husky": "^9.0.10",
     "prettier": "^3.2.4"
   }
 }
