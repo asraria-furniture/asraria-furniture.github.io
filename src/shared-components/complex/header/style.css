@@ -8,7 +8,7 @@
   box-shadow: 0px 1px 2px 0px #9e9e9e;
 }
 
-.main-header>img {
+.main-header > img {
   width: 232px;
   height: 73px;
 }
@@ -41,13 +41,13 @@
   user-select: none;
 }
 
-.search-bar>img {
+.search-bar > img {
   width: 10px;
   height: 100%;
 }
 
-.search-bar>div,
-.search-bar>span {
+.search-bar > div,
+.search-bar > span {
   font-size: 10px;
   letter-spacing: 0.5px;
   height: 100%;
@@ -57,16 +57,16 @@
   text-overflow: ellipsis;
 }
 
-.search-bar>div {
+.search-bar > div {
   color: #000;
   margin-left: -28px;
 }
 
-.search-bar>span {
+.search-bar > span {
   color: #9e9e9e;
 }
 
-.header-content>span {
+.header-content > span {
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -76,43 +76,43 @@
   white-space: nowrap;
 }
 
-.header-content>span:hover {
+.header-content > span:hover {
   color: #987a62;
 }
 
-.header-content>.divider {
+.header-content > .divider {
   width: 2px;
   height: 52px;
   background-color: #000;
 }
 
-.header-content>svg {
+.header-content > svg {
   min-width: 30px;
   height: 42px;
   cursor: pointer;
 }
 
-.header-content>svg path:first-of-type {
+.header-content > svg path:first-of-type {
   stroke: #616161;
 }
 
-.header-content>svg path:last-of-type {
+.header-content > svg path:last-of-type {
   fill: #616161;
 }
 
-.header-content>svg:hover path:first-of-type {
+.header-content > svg:hover path:first-of-type {
   stroke: #987a62;
 }
 
-.header-content>svg:first-of-type:active path:first-of-type {
+.header-content > svg:first-of-type:active path:first-of-type {
   stroke: #fe02a6;
   fill: #fe02a6;
 }
 
-.header-content>svg:last-of-type:hover path:first-of-type {
+.header-content > svg:last-of-type:hover path:first-of-type {
   fill: #987a62;
 }
 
-.header-content>svg:hover path:last-of-type {
+.header-content > svg:hover path:last-of-type {
   fill: #987a62;
 }

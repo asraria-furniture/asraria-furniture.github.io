@@ -22,8 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predev": "mkdir -p build && cp -R public/* build/",
-    "dev": "env-cmd -f .env node build.mjs --watch",
+    "preesbuild": "mkdir -p build && cp -R public/* build/",
+    "esbuild": "env-cmd -f .env node build.mjs",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build -b gh-pages",
@@ -60,12 +60,15 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
+    "child_process": "^1.0.2",
+    "esbuild": "0.20.0",
     "eslint": "^8.56.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.33.2",
     "gh-pages": "^6.1.1",
+    "gulp": "^4.0.2",
     "prettier": "^3.2.4"
   }
 }
